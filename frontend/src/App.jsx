@@ -14,16 +14,13 @@ function App() {
     if (input.trim()) {
       setMessages([...messages, { text: input, sender: 'user' }]);
       setInput('');
-      
-      // Here you can simulate a response or connect to an API
-      // setTimeout(() => {
         const body = {user:"user",message:input,context:messages}
-        const response = await axios.post("http://localhost:8000/api/v1/llm//chat", body)
+        const response = await axios.post("http://localhost:8000/api/v1/llm/chat", body)
+        console.log("Main Response: ",response.data.response)
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: 'Response from ChatGPT', sender: 'bot' },
+          { text: response.data.response , sender: 'bot' },
         ]);
-      // }, 1000);
     }
   };
 
